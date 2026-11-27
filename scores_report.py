@@ -1,33 +1,40 @@
 with open("scores.txt","r") as file:
     count=0
-    for contastant in file:
-        field=contastant.split(",")
+    for lines in file:
+        field=lines.rstrip().split(",")
         name=field[0]
         score=field[1]
-        if type.score == int or float:
-            score=int(score)
+        try:
+            score=int(float(score))
             count+=1
-        else:
+        except ValueError:
             score=score
         if name == "Karim":
             print(score)
+    print(count)
     try:
-        with open("scores.txt") as file:
-            file.readlines()
+        with open("scores.txt","r") as filee:
+            filee.readlines()
     except FileNotFoundError:
         print("File not found.")
 scores={}
-with open("scores.txt","w") as file:
-    for row in file:
-        field=contastant.split(",")
+with open("scores.txt","r") as files:
+    for row in files:
+        field=row.split(",")
         contastant=field[0]
-        grade=field[1]      
+        grade=field[1]  
+        try:
+            grade=int(float(grade))
+            count+=1
+        except ValueError:
+            grade=grade
         if field[0] == "Maya":
             scores[contastant]=88
-        elif contastant != "Nour" and type.grade == int or float:
+        elif contastant != "Nour" and (type(grade) == int or type(grade)==float):
             scores[contastant]=int(grade)
+with open("scores.txt","w") as filess:
     for i in scores:
-        file.write(i,scores[i],sep=",")
-        with open ("pass.txt","w") as files:
-            if scores[i] >60:
-                files.write(i,scores[i],sep=",")
+        filess.write(i + "," + str(scores[i]) + "\n")
+        with open ("pass.txt","a") as filesss:
+            if scores[i] >= 60:
+                filesss.write(i)
